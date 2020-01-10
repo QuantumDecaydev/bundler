@@ -20,7 +20,7 @@ end
 
 desc "Run specs"
 task :spec do
-  sh("bin/rspec")
+  sh("bin/parallel_rspec spec")
 end
 
 namespace :spec do
