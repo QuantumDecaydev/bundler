@@ -166,9 +166,10 @@ module Bundler
 
       if Bundler.git_present? && options[:git]
         Bundler.ui.info "Initializing git repo in #{target}"
-        require "open3"
-        Open3.capture2e("git init", :chdir => target)
-        Open3.capture2e("git add .", :chdir => target)
+        Dir.chdir(target) do
+          `git init`
+          `git add .`
+        end
       end
 
       # Open gemspec in editor

@@ -162,6 +162,7 @@ RSpec.describe "bundle gem" do
     end
 
     it "includes rubocop in generated Gemfile" do
+      allow(Bundler::SharedHelpers).to receive(:find_gemfile).and_return(bundled_app_gemfile)
       builder = Bundler::Dsl.new
       builder.eval_gemfile(bundled_app("#{gem_name}/Gemfile"))
       builder.dependencies
@@ -184,6 +185,7 @@ RSpec.describe "bundle gem" do
     end
 
     it "does not include rubocop in generated Gemfile" do
+      allow(Bundler::SharedHelpers).to receive(:find_gemfile).and_return(bundled_app_gemfile)
       builder = Bundler::Dsl.new
       builder.eval_gemfile(bundled_app("#{gem_name}/Gemfile"))
       builder.dependencies
@@ -426,6 +428,7 @@ RSpec.describe "bundle gem" do
       end
 
       it "depends on a specific version of rspec in generated Gemfile" do
+        allow(Bundler::SharedHelpers).to receive(:find_gemfile).and_return(bundled_app_gemfile)
         builder = Bundler::Dsl.new
         builder.eval_gemfile(bundled_app("#{gem_name}/Gemfile"))
         builder.dependencies
@@ -473,6 +476,7 @@ RSpec.describe "bundle gem" do
       end
 
       it "depends on a specific version of minitest" do
+        allow(Bundler::SharedHelpers).to receive(:find_gemfile).and_return(bundled_app_gemfile)
         builder = Bundler::Dsl.new
         builder.eval_gemfile(bundled_app("#{gem_name}/Gemfile"))
         builder.dependencies
@@ -528,6 +532,7 @@ RSpec.describe "bundle gem" do
       end
 
       it "depends on a specific version of test-unit" do
+        allow(Bundler::SharedHelpers).to receive(:find_gemfile).and_return(bundled_app_gemfile)
         builder = Bundler::Dsl.new
         builder.eval_gemfile(bundled_app("#{gem_name}/Gemfile"))
         builder.dependencies
