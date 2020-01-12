@@ -2,9 +2,9 @@ language: ruby
 dist: bionic
 script:
   - bin/parallel_rspec spec
-  - sudo -E bin/rake spec:sudo
+  - BUNDLER_SUDO_TESTS=1 sudo -E bin/rspec
   - sudo chown -R $(whoami) tmp
-  - BUNDLER_SPEC_PRE_RECORDED=1 bin/rake spec:realworld
+  - BUNDLER_REALWORLD_TESTS=1 BUNDLER_SPEC_PRE_RECORDED=1 bin/rspec
 
 before_script:
   - travis_retry gem install rake:"~> 12.0"
