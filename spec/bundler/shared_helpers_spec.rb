@@ -152,13 +152,13 @@ RSpec.describe Bundler::SharedHelpers do
   end
 
   describe "#chdir" do
-    let(:op_block) { proc { Dir.mkdir bundled_app("nested_dir") } }
+    let(:op_block) { proc { Dir.mkdir "nested_dir" } }
 
     before { Dir.mkdir bundled_app("chdir_test_dir") }
 
     it "executes the passed block while in the specified directory" do
-      subject.chdir("chdir_test_dir", &op_block)
-      expect(Pathname.new("chdir_test_dir/nested_dir")).to exist
+      subject.chdir(bundled_app("chdir_test_dir"), &op_block)
+      expect(bundled_app("chdir_test_dir/nested_dir")).to exist
     end
   end
 
@@ -180,7 +180,7 @@ RSpec.describe Bundler::SharedHelpers do
 
     it "executes the passed block" do
       subject.with_clean_git_env(&with_clean_git_env_block)
-      expect(Pathname.new("with_clean_git_env_test_dir")).to exist
+      expect(bundled_app("with_clean_git_env_test_dir")).to exist
     end
 
     context "when a block is passed" do
@@ -192,8 +192,8 @@ RSpec.describe Bundler::SharedHelpers do
 
       it "uses a fresh git env for execution" do
         subject.with_clean_git_env(&with_clean_git_env_block)
-        expect(Pathname.new("git_dir_test_dir")).to_not exist
-        expect(Pathname.new("git_work_tree_test_dir")).to_not exist
+        expect(bundled_app("git_dir_test_dir")).to_not exist
+        expect(bundled_app("git_work_tree_test_dir")).to_not exist
       end
     end
 
